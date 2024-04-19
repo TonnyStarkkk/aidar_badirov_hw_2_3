@@ -3,7 +3,7 @@ public class Main {
         //Создание счета клиента
         BankAccount account = new BankAccount(15000);
         System.out.println("Остаток денег на счете: " + account.getAmount() + " сом");
-        //попытка снятия денег
+        //Попытка снятия денег
         try {
             while (true){
                 account.withDraw(6000);
