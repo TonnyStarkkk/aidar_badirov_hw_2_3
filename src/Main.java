@@ -1,17 +1,20 @@
 public class Main {
     public static void main(String[] args) {
-        //Создание счета клиента
-        BankAccount account = new BankAccount(15000);
-        System.out.println("Остаток денег на счете: " + account.getAmount() + " сом");
-        //Бесконечный цикл для снятия денег
-        while (true){
+        BankAccount bankAccount = new BankAccount(15000);
+        while (true) {
             try {
-                account.withDraw(6000);
-                System.out.println("Снято 6000 сом. Остаток на счете: " + account.getAmount() + " сом");
-
-
-            }catch (LimitException e){
-                System.out.println("Недостаточно средств на счете. Снято: " + e.getRemainingAmount() + " сом");
+                bankAccount.withDraw(6000);
+                System.out.println("Cняли 6000, остаток " + bankAccount.getAmount());
+            } catch (LimitException e) {
+                try {
+                    bankAccount.withDraw((int)bankAccount.getAmount());
+                } catch (LimitException ex) {
+                    throw new RuntimeException(ex);
+                }
+                System.out.println("Исключение: " + e.getMessage());
+                System.out.println("Максимальная доступная сумма для снятия: " + e.getRemainingAmount() + " сом.");
+                System.out.println("Снято: " + e.getRemainingAmount() + " сом");
+                System.out.println("Остаток на счете : 0 сом");
                 break;
             }
         }
